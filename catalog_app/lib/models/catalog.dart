@@ -1,5 +1,8 @@
+import 'dart:convert';
+
+
 class CatalogModel {
-  static final items = [
+  static List<Item> items = [
     Item(
       id: 1,
       name: "iPhone 12 Pro",
@@ -27,4 +30,59 @@ class Item {
       required this.price,
       required this.color,
       required this.image});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'desc': desc,
+      'price': price,
+      'color': color,
+      'image': image,
+    };
+  }
+
+  factory Item.fromMap(Map<String, dynamic> map) {
+    return Item(
+      id: map['id'],
+      name: map['name'],
+      desc: map['desc'],
+      price: map['price'],
+      color: map['color'],
+      image: map['image'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Item.fromJson(String source) => Item.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'Item(id: $id, name: $name, desc: $desc, price: $price, color: $color, image: $image)';
+  }
+
+  @override
+  // ignore: avoid_renaming_method_parameters
+  bool operator ==(Object o) {
+    if (identical(this, o)) return true;
+
+    return o is Item &&
+        o.id == id &&
+        o.name == name &&
+        o.desc == desc &&
+        o.price == price &&
+        o.color == color &&
+        o.image == image;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        name.hashCode ^
+        desc.hashCode ^
+        price.hashCode ^
+        color.hashCode ^
+        image.hashCode;
+  }
 }
