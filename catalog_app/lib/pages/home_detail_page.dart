@@ -1,4 +1,5 @@
 import 'package:catalog_app/models/catalog.dart';
+import 'package:catalog_app/widgets/home_widgets/add_to_cart.dart';
 import 'package:catalog_app/widgets/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -7,12 +8,13 @@ import 'package:velocity_x/velocity_x.dart';
 class HomeDetailPage extends StatelessWidget {
   final Item catalog;
 
-  const HomeDetailPage({ Key ? key, required this.catalog})
-      : super(key: key);
+  const HomeDetailPage({Key? key, required this.catalog}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       backgroundColor: MyTheme.creamColor,
       bottomNavigationBar: Container(
         color: Colors.white,
@@ -21,17 +23,9 @@ class HomeDetailPage extends StatelessWidget {
           buttonPadding: EdgeInsets.zero,
           children: [
             "\$${catalog.price}".text.bold.xl4.red800.make(),
-            ElevatedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                    MyTheme.darkBlusishColor,
-                  ),
-                  shape: MaterialStateProperty.all(
-                    const StadiumBorder(),
-                  )),
-              child: "Buy".text.make(),
-            ).wh(100, 50)
+            AddToCart(
+              catalog: catalog,
+            ).wh(120, 50)
           ],
         ).p32(),
       ),
@@ -59,6 +53,10 @@ class HomeDetailPage extends StatelessWidget {
                         .make(),
                     catalog.desc.text.xl.make(),
                     10.heightBox,
+                    "Non deserunt ipsum elit laborum. Reprehenderit cillum quis quis ad enim. Cillum in in commodo amet duis ut ut. Laborum cillum nisi elit reprehenderit pariatur nulla pariatur eiusmod labore sint amet."
+                        .text
+                        .make()
+                        .p16()
                   ],
                 ).py64(),
               ),

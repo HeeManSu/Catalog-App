@@ -14,7 +14,17 @@ class MyTheme {
               color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18)));
 
   static ThemeData darkTheme(BuildContext context) =>
-      ThemeData(brightness: Brightness.dark);
+      ThemeData(
+
+   primarySwatch: Colors.deepPurple,
+      fontFamily: GoogleFonts.poppins().fontFamily,
+      appBarTheme: const AppBarTheme(
+          color: Colors.white,
+          elevation: 0.0,
+          iconTheme: IconThemeData(color: Colors.black),
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+              color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18)));
 
   //Colors
   static Color creamColor = const Color(0xfff5f5f5);
