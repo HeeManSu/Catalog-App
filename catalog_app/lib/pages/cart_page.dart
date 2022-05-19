@@ -1,3 +1,4 @@
+import 'package:catalog_app/core/store.dart';
 import 'package:catalog_app/models/cart.dart';
 import 'package:catalog_app/widgets/theme.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class CartPage extends StatelessWidget {
       ),
       body: Column(children: [
         //  we have to create _cartList Wideget.
-        const _CartList().p32().expand(),
+        _CartList().p32().expand(),
         const Divider(),
         //Divider widget is used to sepearte two widgets. It is horizontal line with padding on the either side.
         const _CartTotal(),
@@ -30,8 +31,7 @@ class _CartTotal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //It is a object of that cart class.
-    final _cart = CartModel();
+    final CartModel _cart = (VxState.store as MyStore).cart;
     return SizedBox(
       height: 200,
       child: Row(
@@ -63,19 +63,13 @@ class _CartTotal extends StatelessWidget {
   }
 }
 
-class _CartList extends StatefulWidget {
-  const _CartList({Key? key}) : super(key: key);
-
-  @override
-  State<_CartList> createState() => _CartListState();
-}
-
-class _CartListState extends State<_CartList> {
-  //It is a object of that cart class.
-  final _cart = CartModel();
+class _CartList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // List view is used to show information in vetical way and builder helps in smooth rendering.
+
+    final CartModel _cart = (VxState.store as MyStore).cart;
+
     return _cart.items.isEmpty
         ? "Nothing to show".text.xl3.makeCentered()
         : ListView.builder(
@@ -91,9 +85,9 @@ class _CartListState extends State<_CartList> {
                   icon: const Icon(Icons.remove_circle_outline),
                   onPressed: () {
                     _cart.remove(_cart.items[index]);
-                    setState(() {
-                      
-                    });
+                    // setState(() {
+
+                    // });
                   },
                 ),
                 // Gives text between leading and trailing icon
